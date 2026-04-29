@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Funktionsweise – Feuerwehrmuseum</title>
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="detail-page">
+
+  <header class="top-bar">
+    <a href="products.html" class="back-btn">←</a>
+    <span class="top-title">Feuerwehrmuseum</span>
+  </header>
+
+  <!-- Buttons oben -->
+  <div class="action-btns">
+    <a href="products.html" class="pill-btn">Im Raum ansehen</a>
+    <button class="pill-btn" onclick="document.getElementById('video-overlay').style.display='flex'">Video ansehen</button>
+  </div>
+
+  <!-- Feuerlöscher -->
+  <div class="model-display">
+    <a rel="ar" href="Feuerlöscher_Hand.usdz">
+      <img src="Feuerlöscher_Hand.jpg" alt="Feuerlöscher" class="model-img">
+    </a>
+  </div>
+
+  <!-- Toggle Row -->
+  <div class="toggle-row">
+    <div class="toggle-item">
+      <span class="toggle-label">Beschreibung</span>
+      <label class="toggle-switch">
+        <input type="checkbox">
+        <span class="slider-thumb"></span>
+      </label>
+    </div>
+    <span class="funktionsweise-btn active-tab">Funktionsweise</span>
+  </div>
+
+  <!-- Funktionsweise Overlay (immer sichtbar auf dieser Seite) -->
+  <div class="funktionsweise-panel">
+    <div class="fw-header">
+      <h2>Funktionsweise</h2>
+      <a href="products.html" class="close-x">✕</a>
+    </div>
+    <ol class="fw-steps">
+      <li>
+        <span class="fw-num">1</span>
+        <span>Sicherungsstift abziehen<br><span class="fw-sub">→ Gerät ist einsatzbereit</span></span>
+      </li>
+      <li>
+        <span class="fw-num">2</span>
+        <span>Auslösehebel nach unten drücken</span>
+      </li>
+      <li>
+        <span class="fw-num">3</span>
+        <span>Öffnet das Ventil</span>
+      </li>
+      <li>
+        <span class="fw-num">4</span>
+        <span>Durch das Steigrohr strömt das CO₂ zur Schlauchleitung</span>
+      </li>
+    </ol>
+  </div>
+
+  <!-- Epochen Slider -->
+  <div class="epoch-bar">
+    <button class="epoch-btn active">1920</button>
+    <button class="epoch-btn">1929</button>
+    <button class="epoch-btn">1948</button>
+    <button class="epoch-btn">1952</button>
+    <button class="epoch-btn">1960</button>
+  </div>
+
+  <!-- Video Overlay -->
+  <div class="overlay" id="video-overlay" style="display:none">
+    <div class="overlay-content">
+      <button class="overlay-close-btn" onclick="document.getElementById('video-overlay').style.display='none'">Video beenden</button>
+      <div class="video-placeholder">
+        <img src="Feuerlöscher_Hand.jpg" alt="Video" style="width:100%;height:100%;object-fit:cover;opacity:0.5">
+        <div class="play-icon">▶</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
