@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feuerwehrmuseum St. Gallen</title>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background: #000000;
+      color: #fff;
+      max-width: 430px;
+      margin: 0 auto;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── SCREEN 1 ── */
+    #screen1 {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 60px 28px 52px;
+      background: #000000;
+    }
+
+    .s1-icon-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .s1-bottom {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .s1-title {
+      font-size: 36px;
+      font-weight: 400;
+      color: #ffffff;
+      text-align: center;
+      line-height: 1.2;
+      letter-spacing: 0.2px;
+    }
+
+    /* ── SCREEN 2 ── */
+    #screen2 {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column;
+      align-items: stretch;
+      background: #000000;
+      padding: 20px 20px 44px;
+    }
+
+    .s2-toprow {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 20px;
+    }
+
+    .s2-title {
+      font-size: 28px;
+      font-weight: 400;
+      color: #ffffff;
+      text-align: center;
+      line-height: 1.35;
+      margin-bottom: 24px;
+    }
+
+    .s2-box {
+      background: #6b1212;
+      border: 1.5px solid #c42000;
+      border-radius: 20px;
+      padding: 28px 22px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-bottom: 28px;
+    }
+
+    .s2-box p {
+      font-size: 20px;
+      color: #ffffff;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .s2-divider {
+      height: 1px;
+      height: 1px;
+      display: block;
+      margin: 20px 0;
+    }
+
+    /* ── SHARED BUTTON ── */
+    .btn-red {
+      display: block;
+      width: 75%;
+      margin: 0 auto;
+      background: #7a1515;
+      border: 1.5px solid #c42000;
+      color: #ffffff;
+      font-size: 25px;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-weight: 400;
+      padding: 14px 24px;
+      border-radius: 40px;
+      text-decoration: none;
+      text-align: center;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SCREEN 1 -->
+  <div id="screen1">
+    <div class="s1-icon-wrap">
+      <img src="grafik.png" style="width: 220px; height: auto; object-fit: contain;">
+    </div>
+
+    <div class="s1-bottom">
+      <h1 class="s1-title">Feuerwehrmuseum<br>St. Gallen</h1>
+      <button class="btn-red" onclick="showScreen2()">App Starten</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 2 -->
+  <div id="screen2">
+    <div class="s2-toprow">
+      <img src="grafik.png" style="width: 50px; height: auto; object-fit: contain;">
+    </div>
+
+    <h2 class="s2-title">Willkommen im<br>Feuerwehrmuseum St. Gallen</h2>
+
+    <div class="s2-box">
+      <p>Diese App begleitet dich durch die Geschichte der Handfeuerlöscher.</p>
+      <div class="s2-divider"></div>
+      <p>Entdecke fünf originale Geräte aus den Jahren 1920 bis 1960 und erfahre mehr über ihre Funktionsweise und die damals verwendeten Löschmittel.</p>
+      <div class="s2-divider"></div>
+      <p>Wähle eine Epoche aus und erlebe sie hautnah in Augmented Reality.</p>
+    </div>
+
+    <a href="products.html" class="btn-red">Objekte ansehen</a>
+  </div>
+
+  <script>
+    function showScreen2() {
+      document.getElementById('screen1').style.display = 'none';
+      document.getElementById('screen2').style.display = 'flex';
+    }
+  </script>
+
+</body>
+</html>
