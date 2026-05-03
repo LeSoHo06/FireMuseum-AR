@@ -8,91 +8,213 @@
 </head>
 <body class="products-page">
 
-  <header class="top-bar">
-    <a href="index.html" class="back-btn">←</a>
-    <span class="top-title">Feuerwehrmuseum</span>
-  </header>
+<header class="top-bar">
+  <a href="index.html" class="back-btn">←</a>
+  <span class="top-title">Feuerwehrmuseum</span>
+</header>
 
-  <!-- Buttons oben -->
-  <div class="action-btns">
-    <button class="pill-btn active" id="btn-ar" onclick="openAR()">Im Raum ansehen</button>
-    <button class="pill-btn" id="btn-video" onclick="openVideo()">Video ansehen</button>
+<!-- Buttons -->
+<div class="action-btns">
+  <button class="pill-btn" onclick="openAR()">Im Raum ansehen</button>
+  <button class="pill-btn" onclick="openVideo()">Video ansehen</button>
+</div>
+
+<!-- Modell -->
+<div class="model-display">
+  <a rel="ar" href="resources/feuerloescher_hand.usdz" id="ar-link">
+    <img id="model-img" src="resources/feuerloescher_hand.jpg" class="model-img">
+  </a>
+
+  <!-- Labels -->
+  <div class="label-overlay" id="labels" style="display:none">
+    <span class="label" style="top:18%;left:62%">Ventil</span>
+    <span class="label" style="top:35%;left:8%">Schlauch</span>
+    <span class="label" style="top:55%;left:10%">Etikett</span>
+    <span class="label" style="top:60%;left:65%">Behälter</span>
+  </div>
+</div>
+
+<!-- Beschreibung -->
+<div style="padding: 16px; text-align:center;">
+  <p id="description-text">
+    Ein früher CO₂-Feuerlöscher mit einfacher mechanischer Konstruktion.
+  </p>
+</div>
+
+<!-- Toggle -->
+<div class="toggle-row">
+
+  <!-- Beschreibung -->
+  <div class="toggle-item">
+    <span class="toggle-label">Beschreibung</span>
+    <label class="toggle-switch">
+      <input type="checkbox" onchange="toggleDesc(this)">
+      <span class="slider-thumb"></span>
+    </label>
   </div>
 
-  <!-- Feuerlöscher Anzeige -->
-  <div class="model-display">
-    <a rel="ar" href="" id="ar-link">
-      <img id="model-img" src="Feuerlöscher_Hand.jpg" alt="Feuerlöscher" class="model-img">
-    </a>
+  <!-- Funktionsweise -->
+  <div class="toggle-item">
+    <span class="toggle-label">Funktionsweise</span>
+    <label class="toggle-switch">
+      <input type="checkbox" onchange="toggleSteps(this)">
+      <span class="slider-thumb"></span>
+    </label>
+  </div>
 
-    <!-- Beschriftungen (sichtbar wenn Beschreibung an) -->
-    <div class="label-overlay" id="labels" style="display:none">
-      <span class="label" style="top:18%;left:62%">Ventil</span>
-      <span class="label" style="top:35%;left:8%">Schlauch</span>
-      <span class="label" style="top:55%;left:10%">Etikett</span>
-      <span class="label" style="top:60%;left:65%">Behälter</span>
+</div>
+
+<!-- Funktionsweise -->
+<div id="steps-container" style="display:none; padding:16px;">
+  <ol id="steps-list"></ol>
+</div>
+
+<!-- Epoch -->
+<div class="epoch-bar">
+
+<button class="epoch-btn active" onclick="setEpoch(this,
+'resources/feuerloescher_hand.jpg',
+'resources/feuerloescher_hand.usdz',
+'Ein früher CO₂-Feuerlöscher mit einfacher mechanischer Konstruktion. Diese Modelle wurden manuell bedient.',
+[
+ {title:'Sicherungsstift entfernen', text:'Der Sicherungsstift wird herausgezogen, damit der Feuerlöscher aktiviert werden kann.'},
+ {title:'Hebel betätigen', text:'Durch das Drücken des Hebels wird das Ventil geöffnet.'},
+ {title:'Löschmittel austritt', text:'Das CO₂ strömt durch das Gerät und löscht das Feuer.'}
+])">1920</button>
+
+<button class="epoch-btn" onclick="setEpoch(this,
+'resources/feuerloescher_chrom.jpg',
+'resources/feuerloescher_chrom.usdz',
+'Dieses Modell zeigt eine stabilere Bauweise mit verbessertem Drucksystem.',
+[
+ {title:'Ventil aktivieren', text:'Der Hebel öffnet das Ventil und setzt das Löschmittel frei.'},
+ {title:'Druck nutzt Löschmittel', text:'Das CO₂ wird gleichmässig ausgestossen.'},
+ {title:'Gezieltes Löschen', text:'Der Strahl kann präzise eingesetzt werden.'}
+])">1929</button>
+
+<button class="epoch-btn" onclick="setEpoch(this,
+'resources/feuerloescher_rot.jpg',
+'resources/feuerloescher_rot.usdz',
+'Nach dem Krieg wurden Feuerlöscher effizienter und einfacher zu bedienen.',
+[
+ {title:'Sicherung entfernen', text:'Die Sicherung wird entfernt.'},
+ {title:'Hebel drücken', text:'Der interne Druckmechanismus wird aktiviert.'},
+ {title:'Verbesserter Ausstoss', text:'Das Löschmittel tritt kontrollierter aus.'}
+])">1948</button>
+
+<button class="epoch-btn" onclick="setEpoch(this,
+'resources/feuerloescher_anhang.jpg',
+'resources/feuerloescher_anhang.usdz',
+'Dieses Modell besitzt ein flexibles Schlauchsystem.',
+[
+ {title:'Schlauch ausrichten', text:'Der Schlauch wird auf das Feuer gerichtet.'},
+ {title:'Hebel betätigen', text:'Das Löschmittel wird durch den Schlauch gepresst.'},
+ {title:'Flexibles Löschen', text:'Auch schwer erreichbare Stellen können gelöscht werden.'}
+])">1952</button>
+
+<button class="epoch-btn" onclick="setEpoch(this,
+'resources/feuerloescher_blau.jpg',
+'resources/feuerloescher_blau.usdz',
+'Ein moderneres Modell mit höherer Sicherheit und Effizienz.',
+[
+ {title:'Sicherheitsmechanismus lösen', text:'Die Sicherung verhindert unbeabsichtigtes Auslösen.'},
+ {title:'Drucksystem aktivieren', text:'Das System sorgt für gleichmässigen Ausstoss.'},
+ {title:'Effiziente Brandbekämpfung', text:'Das Feuer wird schnell reduziert.'}
+])">1960</button>
+
+</div>
+
+<!-- Video -->
+<div class="overlay" id="video-overlay" style="display:none">
+  <div class="overlay-content">
+    <button class="overlay-close-btn" onclick="closeVideo()">Video beenden</button>
+    <div class="video-placeholder">
+      <img src="resources/feuerloescher_hand.jpg" style="width:100%;height:100%;opacity:0.5">
+      <div class="play-icon">▶</div>
     </div>
   </div>
+</div>
 
-  <!-- Toggle Buttons -->
-  <div class="toggle-row">
-    <div class="toggle-item">
-      <span class="toggle-label">Beschreibung</span>
-      <label class="toggle-switch">
-        <input type="checkbox" id="toggle-desc" onchange="toggleDesc(this.checked)">
-        <span class="slider-thumb"></span>
-      </label>
-    </div>
-    <a href="detail.html" class="funktionsweise-btn">Funktionsweise</a>
-  </div>
+<script>
 
-  <!-- Epochen Slider -->
-  <div class="epoch-bar">
-    <button class="epoch-btn active" onclick="setEpoch(this, 'Feuerlöscher_Hand.jpg', 'Feuerlöscher_Hand.usdz')">1920</button>
-    <button class="epoch-btn" onclick="setEpoch(this, 'Feuerlöscher_Chrom.jpg', 'Feuerlöscher_Chrom.usdz')">1929</button>
-    <button class="epoch-btn" onclick="setEpoch(this, 'Feuerlöscher_Rot.jpg', 'Feuerlöscher_Rot.usdz')">1948</button>
-    <button class="epoch-btn" onclick="setEpoch(this, 'Feuerlöscher_Anhang.jpg', 'Feuerlöscher_Anhang.usdz')">1952</button>
-    <button class="epoch-btn" onclick="setEpoch(this, 'Feuerlöscher_Blau.jpg', 'Feuerlöscher_Blau.usdz')">1960</button>
-  </div>
+function setEpoch(btn, img, usdz, text, steps) {
+  document.querySelectorAll('.epoch-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
 
-  <!-- Video Overlay -->
-  <div class="overlay" id="video-overlay" style="display:none">
-    <div class="overlay-content">
-      <button class="overlay-close-btn" onclick="closeVideo()">Video beenden</button>
-      <div class="video-placeholder">
-        <img src="Feuerlöscher_Hand.jpg" alt="Video" style="width:100%;height:100%;object-fit:cover;opacity:0.5">
-        <div class="play-icon">▶</div>
-      </div>
-    </div>
-  </div>
+  document.getElementById('model-img').src = img;
+  document.getElementById('ar-link').href = usdz;
+  document.getElementById('description-text').innerText = text;
 
-  <script>
-    function setEpoch(btn, img, usdz) {
-      document.querySelectorAll('.epoch-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('model-img').src = img;
-      document.getElementById('ar-link').href = usdz;
-    }
+  const list = document.getElementById('steps-list');
+  list.innerHTML = "";
 
-    function toggleDesc(on) {
-      document.getElementById('labels').style.display = on ? 'block' : 'none';
-    }
+  steps.forEach(step => {
+    const li = document.createElement("li");
+    li.innerHTML = `<strong>${step.title}</strong><br>${step.text}`;
+    list.appendChild(li);
+  });
 
-    function openAR() {
-      const link = document.getElementById('ar-link');
-      if (link.href && link.href !== window.location.href) {
-        link.click();
-      }
-    }
+  // Reset UI
+  document.querySelectorAll('.toggle-switch input').forEach(t => t.checked = false);
+  document.getElementById('labels').style.display = 'none';
+  document.getElementById('steps-container').style.display = 'none';
+}
 
-    function openVideo() {
-      document.getElementById('video-overlay').style.display = 'flex';
-    }
+function toggleDesc(toggle) {
+  const labels = document.getElementById('labels');
+  const steps = document.getElementById('steps-container');
 
-    function closeVideo() {
-      document.getElementById('video-overlay').style.display = 'none';
-    }
-  </script>
+  if (toggle.checked) {
+    labels.style.display = 'block';
+    steps.style.display = 'none';
+    document.querySelectorAll('.toggle-switch input')[1].checked = false;
+  } else {
+    labels.style.display = 'none';
+  }
+}
+
+function toggleSteps(toggle) {
+  const steps = document.getElementById('steps-container');
+  const labels = document.getElementById('labels');
+
+  if (toggle.checked) {
+    steps.style.display = 'block';
+    labels.style.display = 'none';
+    document.querySelectorAll('.toggle-switch input')[0].checked = false;
+  } else {
+    steps.style.display = 'none';
+  }
+}
+
+function openAR() {
+  document.getElementById('ar-link').click();
+}
+
+function openVideo() {
+  document.getElementById('video-overlay').style.display = 'flex';
+}
+
+function closeVideo() {
+  document.getElementById('video-overlay').style.display = 'none';
+}
+
+window.onload = function() {
+  setEpoch(
+    document.querySelector('.epoch-btn.active'),
+    'resources/feuerloescher_hand.jpg',
+    'resources/feuerloescher_hand.usdz',
+    'Ein früher CO₂-Feuerlöscher mit einfacher mechanischer Konstruktion.',
+    [
+      {title:'Sicherungsstift entfernen', text:'Der Sicherungsstift wird herausgezogen, damit der Feuerlöscher aktiviert werden kann.'},
+      {title:'Hebel betätigen', text:'Durch das Drücken des Hebels wird das Ventil geöffnet.'},
+      {title:'Löschmittel austritt', text:'Das CO₂ strömt aus dem Gerät und löscht das Feuer.'}
+    ]
+  );
+};
+
+</script>
+
+
 
 </body>
 </html>
