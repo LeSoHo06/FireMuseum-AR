@@ -23,20 +23,21 @@
 
     /* Back button */
     .back-link {
-      position: absolute;
-      top: 16px;
+      position: fixed;
+      bottom: 80px;
       left: 8px;
       z-index: 20;
       color: #fff;
-      font-size: 24px;
+      font-size: 20px;
       text-decoration: none;
-      background: rgba(0,0,0,0.3);
-      width: 36px;
-      height: 36px;
+      background: rgba(0,0,0,0.25);
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      opacity: 0.6;
     }
 
     /* Action buttons */
@@ -72,22 +73,23 @@
       width: 100%;
       flex: 1;
       min-height: 380px;
-      background: url('resources/Hintergrund.jpg') center/cover, #777;
+      background: url('resources/Hintergrund.jpg') center/cover, #555;
       background-blend-mode: multiply;
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: center;
       overflow: hidden;
+      padding-bottom: 10px;
     }
 
     .model-img {
-      height: 85%;
-      max-height: 480px;
+      height: 92%;
+      max-height: 520px;
       width: auto;
       object-fit: contain;
       display: block;
       mix-blend-mode: multiply;
-      filter: brightness(1.8);
+      filter: brightness(1.6);
     }
 
     .label-overlay {
@@ -114,13 +116,13 @@
       align-items: center;
       justify-content: center;
       gap: 16px;
-      padding: 20px 24px;
-      background: #6a6a6a;
+      padding: 28px 24px;
+      background: linear-gradient(to bottom, #969696, #6a6a6a);
     }
 
     .beschreibung-label {
       font-size: 20px;
-      color: #d0d0d0;
+      color: #e0e0e0;
       font-style: italic;
     }
 
@@ -174,8 +176,13 @@
 
     .fw-section {
       padding: 12px 0;
-      background: #6a6a6a;
+      background: #6e6e6e;
       text-align: center;
+    }
+
+    .fw-gap {
+      height: 35px;
+      background: #616161;
     }
 
     /* Steps text panel */
@@ -195,13 +202,14 @@
       justify-content: space-around;
       align-items: center;
       padding: 14px 16px;
-      background: #5e5e5e;
-      border-top: 1px solid #6e6e6e;
+      background: #d0d0d0;
+      border-top: 2px solid #fff;
+      border-bottom: 2px solid #e7e7e7;
     }
 
     .epoch-btn {
       background: transparent;
-      color: #cfcfcf;
+      color: #666;
       border: none;
       font-size: 16px;
       font-family: 'EB Garamond', Georgia, serif;
@@ -211,9 +219,14 @@
     }
 
     .epoch-btn.active {
-      color: #fff;
+      color: #000;
       font-weight: 700;
       font-size: 18px;
+    }
+
+    .page-footer {
+      background: #5e5e5e;
+      padding: 12px 0;
     }
 
     /* Video overlay */
@@ -261,8 +274,8 @@
 
 <!-- MODEL + AR -->
 <div class="model-display">
-  <a id="ar-link" rel="ar" href="resources/feuerloescher_hand.usdz">
-    <img id="model-img" src="resources/feuerloescher_hand.jpg" class="model-img">
+  <a id="ar-link" rel="ar" href="resources/feuerloescher_rot.usdz">
+    <img id="model-img" src="resources/feuerloescher_rot.jpg" class="model-img">
   </a>
 
   <div class="label-overlay" id="labels" style="display:none">
@@ -290,34 +303,37 @@
 <!-- STEPS TEXT -->
 <div class="steps-panel" id="steps-text"></div>
 
+<!-- GAP -->
+<div class="fw-gap"></div>
+
 <!-- EPOCH SELECTOR -->
 <div class="epoch-bar">
 
 <button class="epoch-btn active" onclick="setEpoch(this,
-'resources/feuerloescher_hand.jpg',
-'resources/feuerloescher_hand.usdz',
-'Ein früher CO₂-Feuerlöscher mit einfacher mechanischer Konstruktion.',
-'Zuerst wird der Sicherungsstift entfernt. Danach wird der Hebel gedrückt, wodurch das CO₂ austritt und das Feuer gelöscht wird.'
-)">1920</button>
-
-<button class="epoch-btn" onclick="setEpoch(this,
-'resources/feuerloescher_chrom.jpg',
-'resources/feuerloescher_chrom.usdz',
-'Verbesserte Bauweise mit stabilerem Gehäuse.',
-'Das Löschmittel wird gleichmässig ausgestossen und ermöglicht gezielteres Löschen.'
-)">1929</button>
-
-<button class="epoch-btn" onclick="setEpoch(this,
 'resources/feuerloescher_rot.jpg',
 'resources/feuerloescher_rot.usdz',
-'Nachkriegsmodell mit effizienter Technik.',
-'Das Löschmittel tritt kontrolliert aus und verbessert die Brandbekämpfung.'
-)">1948</button>
+'Ein früher Schaumlöscher der Marke BREVO mit rotem Gehäuse.',
+'Zuerst wird der Sicherungsstift entfernt. Danach wird der Hebel gedrückt, wodurch das Löschmittel austritt und das Feuer gelöscht wird.'
+)">1920</button>
 
 <button class="epoch-btn" onclick="setEpoch(this,
 'resources/feuerloescher_anhang.jpg',
 'resources/feuerloescher_anhang.usdz',
-'Modell mit flexiblem Schlauchsystem.',
+'TOTAL Trocken-Feuerlöscher mit Anhang-Behälter.',
+'Das Löschmittel wird gleichmässig ausgestossen und ermöglicht gezielteres Löschen.'
+)">1929</button>
+
+<button class="epoch-btn" onclick="setEpoch(this,
+'resources/feuerloescher_chrom.jpg',
+'resources/feuerloescher_chrom.usdz',
+'Kupferner Nachkriegs-Feuerlöscher mit robustem Gehäuse.',
+'Das Löschmittel tritt kontrolliert aus und verbessert die Brandbekämpfung.'
+)">1948</button>
+
+<button class="epoch-btn" onclick="setEpoch(this,
+'resources/feuerloescher_hand.jpg',
+'resources/feuerloescher_hand.usdz',
+'BREVO Handfeuerlöscher mit Pumpmechanismus.',
 'Der Schlauch ermöglicht gezieltes Löschen auch an schwer erreichbaren Stellen.'
 )">1952</button>
 
@@ -329,6 +345,9 @@
 )">1960</button>
 
 </div>
+
+<!-- FOOTER -->
+<div class="page-footer"></div>
 
 <!-- VIDEO OVERLAY -->
 <div class="overlay" id="video-overlay" style="display:none;">
