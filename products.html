@@ -4,15 +4,274 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Objekte – Feuerwehrmuseum</title>
-  <link rel="stylesheet" href="assets/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'EB Garamond', Georgia, serif;
+      background: #4e4e4e;
+      color: #333;
+      max-width: 393px;
+      margin: 0 auto;
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: url('resources/Hintergrund.jpg') center/cover no-repeat;
+      background-size: cover;
+    }
+
+    /* Back button */
+    .back-link {
+      position: fixed;
+      bottom: 80px;
+      left: 8px;
+      z-index: 20;
+      color: #fff;
+      font-size: 20px;
+      text-decoration: none;
+      background: rgba(0,0,0,0.25);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.6;
+    }
+
+    /* Action buttons */
+    .action-btns {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      padding: 20px 16px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .pill-btn {
+      background: #c9c9c9;
+      color: #000;
+      border: 1px solid #f8f8f8;
+      border-radius: 24px;
+      padding: 10px 24px;
+      font-size: 15px;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      width: 248px;
+      text-align: center;
+    }
+
+    /* Model display */
+    .model-display {
+      position: relative;
+      width: 100%;
+      flex: 1;
+      min-height: 380px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      overflow: hidden;
+      padding-bottom: 10px;
+    }
+
+    .model-img {
+      height: 95%;
+      max-height: 560px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      mix-blend-mode: multiply;
+    }
+
+    .label-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 3;
+    }
+
+    .label {
+      position: absolute;
+      background: rgba(0,0,0,0.65);
+      color: #fff;
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
+    /* Beschreibung row */
+    .beschreibung-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 28px 24px;
+      background: linear-gradient(to bottom, #969696, #6a6a6a);
+    }
+
+    .beschreibung-label {
+      font-size: 20px;
+      color: #e0e0e0;
+      font-style: italic;
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 52px;
+      height: 28px;
+      cursor: pointer;
+    }
+
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+
+    .slider-thumb {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #787878;
+      border-radius: 14px;
+      transition: 0.2s;
+    }
+
+    .slider-thumb::before {
+      content: "";
+      position: absolute;
+      width: 24px; height: 24px;
+      left: 2px; top: 2px;
+      background: #fff;
+      border-radius: 50%;
+      transition: 0.2s;
+    }
+
+    .toggle-switch input:checked + .slider-thumb { background: #cc2200; }
+    .toggle-switch input:checked + .slider-thumb::before { transform: translateX(24px); }
+
+    /* Funktionsweise button */
+    .fw-btn {
+      display: block;
+      width: 262px;
+      margin: 0 auto;
+      padding: 10px 24px;
+      background: #d2d2d2;
+      border: 1px solid #f9f9f9;
+      border-radius: 24px;
+      color: #000;
+      font-size: 16px;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-weight: 500;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .fw-section {
+      padding: 12px 0;
+      background: #6e6e6e;
+      text-align: center;
+    }
+
+    .fw-gap {
+      height: 35px;
+      background: #616161;
+    }
+
+    /* Steps text panel */
+    .steps-panel {
+      display: none;
+      padding: 16px 24px;
+      background: #d0d0d0;
+      color: #333;
+      font-size: 15px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* Epoch bar */
+    .epoch-bar {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 14px 16px;
+      background: #d0d0d0;
+      border-top: 2px solid #fff;
+      border-bottom: 2px solid #e7e7e7;
+    }
+
+    .epoch-btn {
+      background: transparent;
+      color: #666;
+      border: none;
+      font-size: 16px;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-weight: 400;
+      padding: 6px 8px;
+      cursor: pointer;
+    }
+
+    .epoch-btn.active {
+      color: #000;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .page-footer {
+      background: #5e5e5e;
+      padding: 12px 0;
+    }
+
+    /* Video overlay */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 393px;
+      margin: 0 auto;
+    }
+
+    .overlay-content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .overlay-close-btn {
+      margin: 14px auto;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 8px 20px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
-<body class="products-page">
+<body>
 
-<header class="top-bar">
-  <a href="index.html" class="back-btn">←</a>
-  <span class="top-title">Feuerwehrmuseum</span>
-</header>
+<a href="index.html" class="back-link">←</a>
+
+<div class="main-content">
 
 <!-- ACTION BUTTONS -->
 <div class="action-btns">
@@ -22,89 +281,68 @@
 
 <!-- MODEL + AR -->
 <div class="model-display">
-
-  <!-- AR LINK (WICHTIG) -->
-  <a id="ar-link" rel="ar" href="resources/feuerloescher_hand.usdz">
-    <img id="model-img" src="resources/feuerloescher_hand.jpg" class="model-img">
+  <a id="ar-link" rel="ar" href="resources/feuerloescher_rot.usdz">
+    <img id="model-img" src="resources/feuerloescher_rot.jpg" class="model-img">
   </a>
 
-  <!-- LABELS -->
   <div class="label-overlay" id="labels" style="display:none">
     <span class="label" style="top:18%;left:62%">Ventil</span>
     <span class="label" style="top:35%;left:8%">Schlauch</span>
     <span class="label" style="top:55%;left:10%">Etikett</span>
     <span class="label" style="top:60%;left:65%">Behälter</span>
   </div>
-
 </div>
 
-<!-- DESCRIPTION TEXT -->
-<div style="padding:16px; text-align:center;">
-  <p id="description-text">
-    Wähle eine Epoche, um mehr Informationen zu sehen.
-  </p>
+</div><!-- end main-content -->
+
+<!-- BESCHREIBUNG ROW -->
+<div class="beschreibung-row">
+  <span class="beschreibung-label">Beschreibung</span>
+  <label class="toggle-switch">
+    <input type="checkbox" id="toggle-desc" onchange="toggleDesc(this)">
+    <span class="slider-thumb"></span>
+  </label>
 </div>
 
-<!-- TOGGLES -->
-<div class="toggle-row">
-
-  <div class="toggle-item">
-    <span class="toggle-label">Beschreibung</span>
-    <label class="toggle-switch">
-      <input type="checkbox" id="toggle-desc" onchange="toggleDesc(this)">
-      <span class="slider-thumb"></span>
-    </label>
-  </div>
-
-  <div class="toggle-item">
-    <span class="toggle-label">Funktionsweise</span>
-    <label class="toggle-switch">
-      <input type="checkbox" id="toggle-steps" onchange="toggleSteps(this)">
-      <span class="slider-thumb"></span>
-    </label>
-  </div>
-
+<!-- FUNKTIONSWEISE BUTTON -->
+<div class="fw-section">
+  <button class="fw-btn" onclick="toggleSteps()">Funktionsweise</button>
 </div>
 
-<!-- FUNKTIONSWEISE -->
-<div id="steps-text" style="
-  display:none;
-  padding:16px;
-  background:#1e1e1e;
-  border-radius:12px;
-  margin:12px;
-  color:#ddd;
-  line-height:1.6;
-"></div>
+<!-- STEPS TEXT -->
+<div class="steps-panel" id="steps-text"></div>
+
+<!-- GAP -->
+<div class="fw-gap"></div>
 
 <!-- EPOCH SELECTOR -->
 <div class="epoch-bar">
 
 <button class="epoch-btn active" onclick="setEpoch(this,
-'resources/feuerloescher_hand.jpg',
-'resources/feuerloescher_hand.usdz',
-'Ein früher CO₂-Feuerlöscher mit einfacher mechanischer Konstruktion.',
-'Zuerst wird der Sicherungsstift entfernt. Danach wird der Hebel gedrückt, wodurch das CO₂ austritt und das Feuer gelöscht wird.'
-)">1920</button>
-
-<button class="epoch-btn" onclick="setEpoch(this,
-'resources/feuerloescher_chrom.jpg',
-'resources/feuerloescher_chrom.usdz',
-'Verbesserte Bauweise mit stabilerem Gehäuse.',
-'Das Löschmittel wird gleichmässig ausgestossen und ermöglicht gezielteres Löschen.'
-)">1929</button>
-
-<button class="epoch-btn" onclick="setEpoch(this,
 'resources/feuerloescher_rot.jpg',
 'resources/feuerloescher_rot.usdz',
-'Nachkriegsmodell mit effizienter Technik.',
-'Das Löschmittel tritt kontrolliert aus und verbessert die Brandbekämpfung.'
-)">1948</button>
+'Ein früher Schaumlöscher der Marke BREVO mit rotem Gehäuse.',
+'Zuerst wird der Sicherungsstift entfernt. Danach wird der Hebel gedrückt, wodurch das Löschmittel austritt und das Feuer gelöscht wird.'
+)">1920</button>
 
 <button class="epoch-btn" onclick="setEpoch(this,
 'resources/feuerloescher_anhang.jpg',
 'resources/feuerloescher_anhang.usdz',
-'Modell mit flexiblem Schlauchsystem.',
+'TOTAL Trocken-Feuerlöscher mit Anhang-Behälter.',
+'Das Löschmittel wird gleichmässig ausgestossen und ermöglicht gezielteres Löschen.'
+)">1929</button>
+
+<button class="epoch-btn" onclick="setEpoch(this,
+'resources/feuerloescher_chrom.jpg',
+'resources/feuerloescher_chrom.usdz',
+'Kupferner Nachkriegs-Feuerlöscher mit robustem Gehäuse.',
+'Das Löschmittel tritt kontrolliert aus und verbessert die Brandbekämpfung.'
+)">1948</button>
+
+<button class="epoch-btn" onclick="setEpoch(this,
+'resources/feuerloescher_hand.jpg',
+'resources/feuerloescher_hand.usdz',
+'BREVO Handfeuerlöscher mit Pumpmechanismus.',
 'Der Schlauch ermöglicht gezieltes Löschen auch an schwer erreichbaren Stellen.'
 )">1952</button>
 
@@ -117,11 +355,13 @@
 
 </div>
 
+<!-- FOOTER -->
+<div class="page-footer"></div>
+
 <!-- VIDEO OVERLAY -->
 <div class="overlay" id="video-overlay" style="display:none;">
   <div class="overlay-content">
     <button class="overlay-close-btn" onclick="closeVideo()">Video beenden</button>
-
     <div style="
       background:black;
       height:100%;
@@ -132,10 +372,8 @@
       color:white;
     ">
       <div style="font-size:20px;">Video vom Feuerlöscher</div>
-      <div style="opacity:0.7;"></div>
       <div style="font-size:40px;">▶</div>
     </div>
-
   </div>
 </div>
 
@@ -148,12 +386,10 @@ function setEpoch(btn, img, usdz, desc, steps) {
   document.getElementById('model-img').src = img;
   document.getElementById('ar-link').href = usdz;
 
-  document.getElementById('description-text').innerText = desc;
   document.getElementById('steps-text').innerText = steps;
 
   // reset toggles
   document.getElementById('toggle-desc').checked = false;
-  document.getElementById('toggle-steps').checked = false;
   document.getElementById('labels').style.display = 'none';
   document.getElementById('steps-text').style.display = 'none';
 }
@@ -163,13 +399,13 @@ function toggleDesc(toggle) {
     toggle.checked ? 'block' : 'none';
 }
 
-function toggleSteps(toggle) {
-  document.getElementById('steps-text').style.display =
-    toggle.checked ? 'block' : 'none';
+function toggleSteps() {
+  var panel = document.getElementById('steps-text');
+  panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
 }
 
 function openAR() {
-  const isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  var isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
   if (isiOS) {
     document.getElementById('ar-link').click();
   } else {
